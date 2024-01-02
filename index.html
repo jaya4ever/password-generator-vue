@@ -75,13 +75,13 @@
     <div id="app">
       <h1>Password Generator</h1>
       <label for="length">Password Length:</label>
-      <input type="number" v-model.number="passwordLength" min="4" max="24" />
+      <input type="number" v-model.number="passwordLength" min="8" max="24" />
       <button @click="generatePassword">Generate Password</button>
       <p>Your Password: {{ generatedPassword }}</p>
     </div>
 
     <script>
-         //window.onload = alert("Please click generate password to start");
+         window.onload = alert("Please click generate password to start. Password length must be between 8 and 24 characters");
       const app = Vue.createApp({
         data() {
           return {
@@ -94,7 +94,7 @@
           generatePassword() {
             const passwordChar = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_-+=";
             if (this.passwordLength < 8 || this.passwordLength > 24) {
-              alert("Password length must be between 4 and 24 characters");
+              alert("Password length must be between 8 and 24 characters");
               return;
             }
 
