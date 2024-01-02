@@ -33,7 +33,7 @@
         border-radius: 3px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         background-color: #b8b0d8;
-        max-width: 400px;
+        max-width: 500px;
         width: 100%;
         margin: 0 auto;
       }
@@ -83,6 +83,32 @@
       button:hover {
         background-color: #45a049;
       }
+      .password-display {
+        display: flex;
+        align-items: center;
+        margin-right: auto;
+      }
+      .password-display p {
+        margin-right: 10px;
+        display: inline-block;
+      }
+      .password-display button {
+     
+        font-weight:normal;
+        color: white;
+
+        background-color: green;
+        margin: auto;
+        border-radius: 5px;
+        padding: 1rem;
+
+        /* color: white; */
+        text-align: center;
+        width: 50%;
+        max-width: 10rem;
+        box-sizing: border-box;
+        font-size: larger;
+      }
 
       p {
         margin-top: 20px;
@@ -106,12 +132,15 @@
     <div id="app">
       <h1>Password Generator</h1>
       <label for="length">Password Length:</label>
-      <input type="number" v-model.number="passwordLength" min="8" max="24" />
+      <input type="number" v-model.number="passwordLength" placeholder="Length" min="12" max="24" />
+      <!-- <button @click="copyToClipboard" v-model="!isValid && generatedPassword">Copy to Clipboard</button> -->
       <button @click="generatePassword">Generate Password</button>
       <!-- <p v-if="!isValid">Please enter a valid password length</p> -->
       <!-- <p>Your Password: {{ generatedPassword }}</p> -->
-      <p v-if="generatedPassword.length > 0">
-        Your Password: {{ generatedPassword }}</p>
+      <div class="password-display" v-if="isValid && generatedPassword">
+        <p>Your Password: {{ generatedPassword }}</p>
+        <button @click="copyToClipboard">📋</button>
+      </div>
       <p v-if="generatedPassword.length > 0">Your Password Length: {{ generatedPassword.length }}</p>
       <p v-if="generatedPassword.length > 0">
         Your Password Strength: {{ generatedPassword.length > 0 && generatedPassword.length < 12 ? 'Weak' :
@@ -119,20 +148,20 @@
       </p>
       <p v-if="generatedPassword.length > 0">
         Your Password Complexity: {{ generatedPassword.length > 0 && generatedPassword.length < 12 ? 'Low' :
-        generatedPassword.length > 12 && generatedPassword.length < 18 ? 'Medium' : 'High' }} </p>
-       
-          <p v-if="!isValid">Please enter a valid password length</p>
-      
+        generatedPassword.length > 12 && generatedPassword.length < 18 ? 'Medium' : 'High' }}
+      </p>
+
+      <p v-if="!isValid">Please enter a valid password length</p>
     </div>
 
     <script>
       window.onload = alert(
-        "Please click generate password to start. Password length must be between 8 and 24 characters"
+        "Please click generate password to start. Password length must be between 12 and 24 characters"
       );
       const app = Vue.createApp({
         data() {
           return {
-            passwordLength: 8,
+            passwordLength: 12,
             generatedPassword: "",
             isValid: true,
           };
@@ -140,7 +169,7 @@
 
         methods: {
           generatePassword() {
-            if (this.passwordLength < 8 || this.passwordLength > 24) {
+            if (this.passwordLength < 12 || this.passwordLength > 24) {
               this.isValid = false;
               this.generatedPassword = "";
               return;
@@ -155,6 +184,18 @@
             this.generatedPassword = password;
 
             alert("Your Password is: " + this.generatedPassword);
+          },
+          copyToClipboard() {
+            if (this.generatedPassword.length) {
+              navigator.clipboard.writeText(this.generatedPassword).then(
+                () => {
+                  alert(" Copying to clipboard was successful!");
+                },
+                (err) => {
+                  alert("Could not copy text: ", err);
+                }
+              );
+            }
           },
         },
       });
