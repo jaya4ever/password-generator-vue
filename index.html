@@ -110,6 +110,8 @@
       <button @click="generatePassword">Generate Password</button>
       <!-- <p v-if="!isValid">Please enter a valid password length</p> -->
       <!-- <p>Your Password: {{ generatedPassword }}</p> -->
+      <p v-if="generatedPassword.length > 0">
+        Your Password: {{ generatedPassword }}</p>
       <p v-if="generatedPassword.length > 0">Your Password Length: {{ generatedPassword.length }}</p>
       <p v-if="generatedPassword.length > 0">
         Your Password Strength: {{ generatedPassword.length > 0 && generatedPassword.length < 12 ? 'Weak' :
@@ -117,11 +119,10 @@
       </p>
       <p v-if="generatedPassword.length > 0">
         Your Password Complexity: {{ generatedPassword.length > 0 && generatedPassword.length < 12 ? 'Low' :
-        generatedPassword.length > 12 && generatedPassword.length < 18 ? 'Medium' : 'High' }}
-        <p v-if="generatedPassword.length > 0">
-          Your Password: {{ generatedPassword }}
-          <p v-else="!isValid">Please enter a valid password length</p>
-      </p>
+        generatedPassword.length > 12 && generatedPassword.length < 18 ? 'Medium' : 'High' }} </p>
+       
+          <p v-if="!isValid">Please enter a valid password length</p>
+      
     </div>
 
     <script>
