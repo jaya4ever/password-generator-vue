@@ -73,6 +73,9 @@
       },
       togglePassword() {
         this.showPassword = !this.showPassword;
+       if(this.showPassword === true){
+        alert("Password will disappear after 5 seconds.")
+       }
         if (this.showPassword) {
           this.setAutoHide();
         } else {
