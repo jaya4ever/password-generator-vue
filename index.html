@@ -6,17 +6,6 @@
     <title>Password Generator</title>
     <script src="https://unpkg.com/vue@3"></script>
     <style>
-      /* header {
-        box-shadow: 0 2px 8px rgba(103, 210, 94, 0.26);
-        margin: 3rem auto;
-        border-radius: 10px;
-        padding: 1rem;
-        background-color: white;
-        color: white;
-        text-align: center;
-        width: 100%;
-        max-width: 20rem;
-      } */
       body {
         font-family: "Arial", sans-serif;
         display: flex;
@@ -83,31 +72,24 @@
       button:hover {
         background-color: #45a049;
       }
+
       .password-display {
-        display: flex;
-        align-items: center;
-        margin-right: auto;
-      }
-      .password-display p {
+        border: 1px solid #ccc;
+        padding: 10px;
+        border-radius: 5px;
         margin-right: 10px;
         display: inline-block;
       }
+
       .password-display button {
-     
-        font-weight:normal;
+        font-weight: normal;
         color: white;
 
         background-color: green;
-        margin: auto;
-        border-radius: 5px;
-        padding: 1rem;
 
-        /* color: white; */
-        text-align: center;
-        width: 50%;
-        max-width: 10rem;
-        box-sizing: border-box;
-        font-size: larger;
+        border-radius: 5px;
+        padding: 10px 15px;
+        cursor: pointer;
       }
 
       p {
@@ -132,14 +114,15 @@
     <div id="app">
       <h1>Password Generator</h1>
       <label for="length">Password Length:</label>
-      <input type="number" v-model.number="passwordLength" placeholder="Length" min="12" max="24" />
-      <!-- <button @click="copyToClipboard" v-model="!isValid && generatedPassword">Copy to Clipboard</button> -->
+      <input type="number" v-model.number="passwordLength" placeholder="Password" min="12" max="24" />
+
       <button @click="generatePassword">Generate Password</button>
-      <!-- <p v-if="!isValid">Please enter a valid password length</p> -->
-      <!-- <p>Your Password: {{ generatedPassword }}</p> -->
+
       <div class="password-display" v-if="isValid && generatedPassword">
-        <p>Your Password: {{ generatedPassword }}</p>
-        <button @click="copyToClipboard">📋</button>
+        <input :type="showPassword ? 'text' : 'password'" :value="generatedPassword" />
+        <button @click="togglePassword">{{ showPassword ? 'Hide' : 'Show' }} Password</button>
+
+        <button @click="copyToClipboard"><br />📋Copy To Clipboard</button>
       </div>
       <p v-if="generatedPassword.length > 0">Your Password Length: {{ generatedPassword.length }}</p>
       <p v-if="generatedPassword.length > 0">
@@ -164,6 +147,7 @@
             passwordLength: 12,
             generatedPassword: "",
             isValid: true,
+            showPassword: false,
           };
         },
 
@@ -182,8 +166,9 @@
               password += passwordChar.charAt(randomForPassword);
             }
             this.generatedPassword = password;
-
-            alert("Your Password is: " + this.generatedPassword);
+          },
+          togglePassword() {
+            this.showPassword = !this.showPassword;
           },
           copyToClipboard() {
             if (this.generatedPassword.length) {
