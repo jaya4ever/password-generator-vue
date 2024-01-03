@@ -5,110 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Password Generator</title>
     <script src="https://unpkg.com/vue@3"></script>
-    <style>
-      body {
-        font-family: "Arial", sans-serif;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        height: auto;
-        margin: 0;
-        background-color: #f4f4f4;
-      }
-
-      #app {
-        text-align: center;
-        padding: 10px;
-        border-radius: 3px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        background-color: #b8b0d8;
-        max-width: 500px;
-        width: 100%;
-        margin: 0 auto;
-      }
-
-      h1 {
-        color: green;
-        margin-bottom: 20px;
-        box-shadow: 0 2px 8px rgba(103, 210, 94, 0.26);
-        margin: 3rem auto;
-        border-radius: 10px;
-        padding: 1rem;
-        background-color: white;
-
-        text-align: center;
-        width: 100%;
-        max-width: 20rem;
-      }
-
-      label {
-        display: block;
-        text-align: left;
-        margin-bottom: 5px;
-      }
-
-      input {
-        width: 100%;
-        padding: 10px;
-        margin-bottom: 20px;
-        box-sizing: border-box;
-      }
-
-      button {
-        border: none;
-        background-color: hsl(360, 91%, 36%);
-        border-radius: 25px;
-        box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 6px 0px rgba(0, 0, 0, 0.2) 0px 1px 1px 0px;
-        color: hsl(0, 0%, 100%);
-        display: inline-block;
-        font-size: 22px;
-        line-height: 22px;
-        margin: 16px 16px 16px 20px;
-        padding: 14px 34px;
-        text-align: center;
-        cursor: pointer;
-      }
-
-      button:hover {
-        background-color: #45a049;
-      }
-
-      .password-display {
-        border: 1px solid #ccc;
-        padding: 10px;
-        border-radius: 5px;
-        margin-right: 10px;
-        display: inline-block;
-      }
-
-      .password-display button {
-        font-weight: normal;
-        color: white;
-
-        background-color: green;
-
-        border-radius: 5px;
-        padding: 10px 15px;
-        cursor: pointer;
-      }
-
-      p {
-        margin-top: 20px;
-        font-weight: bold;
-        color: green;
-        box-shadow: 0 2px 8px rgba(103, 210, 94, 0.26);
-        margin: 3rem auto;
-        border-radius: 5px;
-        padding: 1rem;
-        background-color: white;
-        /* color: white; */
-        text-align: center;
-        width: 100%;
-        max-width: 20rem;
-        box-sizing: border-box;
-        font-size: larger;
-      }
-    </style>
   </head>
   <body>
     <div id="app">
@@ -136,56 +32,163 @@
 
       <p v-if="!isValid">Please enter a valid password length</p>
     </div>
-
-    <script>
-      window.onload = alert(
-        "Please click generate password to start. Password length must be between 12 and 24 characters"
-      );
-      const app = Vue.createApp({
-        data() {
-          return {
-            passwordLength: 12,
-            generatedPassword: "",
-            isValid: true,
-            showPassword: false,
-          };
-        },
-
-        methods: {
-          generatePassword() {
-            if (this.passwordLength < 12 || this.passwordLength > 24) {
-              this.isValid = false;
-              this.generatedPassword = "";
-              return;
-            }
-            const passwordChar = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_-+=";
-
-            let password = "";
-            for (let i = 0; i < this.passwordLength; i++) {
-              const randomForPassword = Math.floor(Math.random() * passwordChar.length);
-              password += passwordChar.charAt(randomForPassword);
-            }
-            this.generatedPassword = password;
-          },
-          togglePassword() {
-            this.showPassword = !this.showPassword;
-          },
-          copyToClipboard() {
-            if (this.generatedPassword.length) {
-              navigator.clipboard.writeText(this.generatedPassword).then(
-                () => {
-                  alert(" Copying to clipboard was successful!");
-                },
-                (err) => {
-                  alert("Could not copy text: ", err);
-                }
-              );
-            }
-          },
-        },
-      });
-
-      app.mount("#app");
-    </script>
   </body>
 </html>
+
+<!-- Script starts from here -->
+<script>
+  window.onload = alert(
+    "Please click generate password to start. Password length must be between 12 and 24 characters"
+  );
+  const app = Vue.createApp({
+    data() {
+      return {
+        passwordLength: 12,
+        generatedPassword: "",
+        isValid: true,
+        showPassword: false,
+      };
+    },
+
+    methods: {
+      generatePassword() {
+        if (this.passwordLength < 12 || this.passwordLength > 24) {
+          this.isValid = false;
+          this.generatedPassword = "";
+          return;
+        }
+        const passwordChar = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_-+=";
+
+        let password = "";
+        for (let i = 0; i < this.passwordLength; i++) {
+          const randomForPassword = Math.floor(Math.random() * passwordChar.length);
+          password += passwordChar.charAt(randomForPassword);
+        }
+        this.generatedPassword = password;
+      },
+      togglePassword() {
+        this.showPassword = !this.showPassword;
+      },
+      copyToClipboard() {
+        if (this.generatedPassword.length) {
+          navigator.clipboard.writeText(this.generatedPassword).then(
+            () => {
+              alert(" Copying to clipboard was successful!");
+            },
+            (err) => {
+              alert("Could not copy text: ", err);
+            }
+          );
+        }
+      },
+    },
+  });
+
+  app.mount("#app");
+</script>
+
+<!-- Styling starts from here  -->
+<style>
+  body {
+    font-family: "Arial", sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: auto;
+    margin: 0;
+    background-color: #f4f4f4;
+  }
+
+  #app {
+    text-align: center;
+    padding: 10px;
+    border-radius: 3px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #b8b0d8;
+    max-width: 500px;
+    width: 100%;
+    margin: 0 auto;
+  }
+
+  h1 {
+    color: green;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 8px rgba(103, 210, 94, 0.26);
+    margin: 3rem auto;
+    border-radius: 10px;
+    padding: 1rem;
+    background-color: white;
+
+    text-align: center;
+    width: 100%;
+    max-width: 20rem;
+  }
+
+  label {
+    display: block;
+    text-align: left;
+    margin-bottom: 5px;
+  }
+
+  input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    box-sizing: border-box;
+  }
+
+  button {
+    border: none;
+    background-color: hsl(360, 91%, 36%);
+    border-radius: 25px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 6px 0px rgba(0, 0, 0, 0.2) 0px 1px 1px 0px;
+    color: hsl(0, 0%, 100%);
+    display: inline-block;
+    font-size: 22px;
+    line-height: 22px;
+    margin: 16px 16px 16px 20px;
+    padding: 14px 34px;
+    text-align: center;
+    cursor: pointer;
+  }
+
+  button:hover {
+    background-color: #45a049;
+  }
+
+  .password-display {
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 5px;
+    margin-right: 10px;
+    display: inline-block;
+  }
+
+  .password-display button {
+    font-weight: normal;
+    color: white;
+
+    background-color: green;
+
+    border-radius: 5px;
+    padding: 10px 15px;
+    cursor: pointer;
+  }
+
+  p {
+    margin-top: 20px;
+    font-weight: bold;
+    color: green;
+    box-shadow: 0 2px 8px rgba(103, 210, 94, 0.26);
+    margin: 3rem auto;
+    border-radius: 5px;
+    padding: 1rem;
+    background-color: white;
+    /* color: white; */
+    text-align: center;
+    width: 100%;
+    max-width: 20rem;
+    box-sizing: border-box;
+    font-size: larger;
+  }
+</style>
